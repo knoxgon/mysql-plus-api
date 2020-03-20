@@ -51,3 +51,18 @@ router.post('/add', (req, res, next) => {
   })
 });
 
+//Show data from the database from a specific user
+router.delete('/remove/:id', (req, res, next) => {
+  //Extract id parameter
+  const id = req.params.id
+
+  //Run the transaction
+  procedure.runTranscationRemoveTask(id).then(result => {
+
+    apiCounter.visit();
+    res.send({data: result})
+  }).catch(error => {
+    res.status(400).send({message: error})
+  })
+});
+
