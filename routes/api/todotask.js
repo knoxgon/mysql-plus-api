@@ -6,7 +6,7 @@ const procedure = require('../../db/procedures');
 //Show all data from the database
 router.get('/show', (req, res, next) => {
   //Run the transaction
-  procedure.runTranscationSelectAll().then(result => {
+  procedure.runTranscationSelectAll('todolist').then(result => {
     
     apiCounter.visit();
     res.send({users: result})
