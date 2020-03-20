@@ -30,3 +30,24 @@ router.get('/show/:owner', (req, res, next) => {
   })
 });
 
+//Show data from the database from a specific user
+router.post('/add', (req, res, next) => {
+  /**
+   * The json body must match the following format
+   * {
+   *   owner: <the owner's name>
+   *   task: <task description>
+   * }
+   */
+  //Extract owner and task from the json body
+  const owner = req.body.owner;
+  const task  = req.body.task;
+  //Run the transaction
+  procedure.runTranscationAddTask(owner, task).then(result => {
+    apiCounter.visit();
+    res.send({data: result})
+  }).catch(error => {
+    res.status(400).send({message: error})
+  })
+});
+
