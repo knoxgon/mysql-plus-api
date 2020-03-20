@@ -23,7 +23,6 @@ You can copy and run the following sql code to create the table `todolist` in yo
 
 ```mysql
 --This creates the table for your need
-
 CREATE TABLE todolist(
   id INT PRIMARY KEY AUTO_INCREMENT,
   owner VARCHAR(30) NOT NULL,
