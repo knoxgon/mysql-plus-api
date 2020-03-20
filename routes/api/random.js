@@ -11,5 +11,16 @@ router.get('/random', function(req, res, next) {
   res.send({number})
 });
 
+router.get('/custom_random/:num', function(req, res, next) {
+  //Store the num's value from the parameter
+  const number = req.params.num;
+  //Randomize number according labb (0 to num)
+  const randomNumber = Math.floor(Math.random() * number)
+
+  apiCounter.visit()
+
+  res.send({number: randomNumber})
+});
+
 
 module.exports = router;
