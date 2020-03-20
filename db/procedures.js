@@ -54,3 +54,22 @@ module.exports.runTranscationAddTask = (owner, task) => {
   });  
 }
 
+//Remove a todolist element
+module.exports.runTranscationRemoveTask = (id) => {
+  return new Promise((resolve, reject) => {
+    if(!id) {
+      reject(`Please provide correct field [id]`);
+    }
+    else {
+      connection.query(`delete from todolist where id=${id};`, (err,result) => {
+         //In case of no id is found to modify, reject with a message
+         if(result.affectedRows === 0)
+          reject(`The id: [${id}] not found`);
+        if(err)
+          reject(`Error occured while processing data into todolist`);
+        resolve(`Task successfully removed`)
+      });
+    }
+  });  
+}
+
