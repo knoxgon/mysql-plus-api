@@ -73,3 +73,21 @@ module.exports.runTranscationRemoveTask = (id) => {
   });  
 }
 
+//Update task description by providing new task description and target id to modify.
+module.exports.runTranscationUpdateTask = (task, id) => {
+  return new Promise((resolve, reject) => {
+    if(!task || !id) {
+      reject(`Please provide correct fields [task, id]`);
+    }
+    else {
+      connection.query(`update todolist set task=\"${task}\" where id=${id};`, (err,result) => {
+        //In case of no id is found to modify, reject with a message
+        if(result.affectedRows === 0)
+          reject(`The id: [${id}] not found`);
+        if(err)
+          reject(`Error occured while processing data into todolist`);
+        resolve(`Task successfully updated`)
+      });
+    }
+  });  
+}
