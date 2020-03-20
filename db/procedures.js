@@ -9,3 +9,30 @@ module.exports.runTranscationSelectAll = (table) => {
     });
   });  
 }
+
+//Select tasks from a specific user by group task field
+module.exports.runTranscationSelectSpecificOwner = (owner) => {
+  return new Promise((resolve, reject) => {
+    connection.query(`SELECT task FROM todolist where owner=\"${owner}\" group by task;`, (err,rows) => {
+      /**
+       * Let's say we have 3 records
+       * owner: Volkan - task: "Buy milk"
+       * owner: Volkan - task: "Take out trashes"
+       * owner: Joe    - task: "Take a walk"
+       * 
+       * The example output where owner is Volkan
+       * {
+       *   task: "Buy milk",
+       *   task: "Take out trashes",
+       * }
+       * 
+       */
+      if(rows.length === 0)
+        reject(`No records were found for ${owner}`)
+      if(err)
+        reject(`Error occured while processing data from todolist;`);
+      resolve(rows)
+    });
+  });  
+}
+
