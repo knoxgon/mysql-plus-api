@@ -19,7 +19,7 @@ const connection = mysql.createConnection({
 
 A table named `todolist` must be created in your database with `owner` and `task` columns to be compatible with the transactions.
 
-You can copy and run the following code to create a table
+You can copy and run the following sql code to create the table `todolist` in your database
 
 ```mysql
 --This creates the table for your need
