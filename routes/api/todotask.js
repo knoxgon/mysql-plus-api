@@ -15,3 +15,18 @@ router.get('/show', (req, res, next) => {
   })
 });
 
+//Show data from the database from a specific user
+router.get('/show/:owner', (req, res, next) => {
+  //Store owner value
+  const owner = req.params.owner;
+
+  //Run the transaction
+  procedure.runTranscationSelectSpecificOwner(owner).then(result => {
+
+    apiCounter.visit();
+    res.send({[owner]: result})
+  }).catch(error => {
+    res.status(400).send({message: error})
+  })
+});
+
