@@ -36,3 +36,21 @@ module.exports.runTranscationSelectSpecificOwner = (owner) => {
   });  
 }
 
+//Add a new todolist item
+module.exports.runTranscationAddTask = (owner, task) => {
+  return new Promise((resolve, reject) => {
+    //Since we are to manipulate the database, check for the fields
+    if(!owner || !task) {
+      reject(`Please provide correct fields [owner, task]`);
+    }
+    else {
+      //When pushing data into the mysql, escaping single/double quotes are essential
+      connection.query(`insert into todolist(owner, task) values(\"${owner}\", \"${task}\";)`, (err,result) => {
+        if(err)
+          reject(`Error occured while processing data into todolist`);
+        resolve(`Task successfully assigned to ${owner}`)
+      });
+    }
+  });  
+}
+
