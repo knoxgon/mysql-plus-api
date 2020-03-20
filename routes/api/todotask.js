@@ -66,3 +66,22 @@ router.delete('/remove/:id', (req, res, next) => {
   })
 });
 
+//Show data from the database from a specific user
+router.patch('/update/:id', (req, res, next) => {
+  //Extract id parameter
+  const id = req.params.id
+  //Extract task from body
+  const task = req.body.task
+
+  //Run the transaction
+  procedure.runTranscationUpdateTask(task, id).then(result => {
+
+    apiCounter.visit();
+    res.send({data: result})
+  }).catch(error => {
+    res.status(400).send({message: error})
+  })
+});
+
+
+module.exports = router;
