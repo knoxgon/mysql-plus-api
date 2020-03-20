@@ -5,6 +5,33 @@ Express api using MySQL transactions and different dead simple api calls
 ## Getting Started
 You can find [DOCS](#DOCS) at the end of the page
 
+Make sure that you are putting your database credentials in `db/index.js` file
+
+```js
+const connection = mysql.createConnection({
+  host: '<database host>',
+  user: '<database username>',
+  password: '<database password>',
+  database: '<database name>'
+})
+
+```
+
+A table named `todolist` must be created in your database with `owner` and `task` columns to be compatible with the transactions.
+
+You can copy and run the following code to create a table
+
+```mysql
+--This creates the table for your need
+
+CREATE TABLE todolist(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  owner VARCHAR(30) NOT NULL,
+  task TEXT NOT NULL
+);
+
+```
+
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 See [deployment](#Deployment) for notes on how to deploy the project on a live system.
